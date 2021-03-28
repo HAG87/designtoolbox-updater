@@ -148,7 +148,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if $(ConfigurationName) == Release xcopy "$(TargetPath)" "D:\repos\DesignToolbox\src\compiled\Scripts\DesignToolbox\assemblies\" /Y
+    <PostBuildEvent>if $(ConfigurationName) == Release xcopy "$(TargetPath)*.exe" "D:\repos\DesignToolbox\src\compiled\Scripts\DesignToolbox\assemblies\" /Y
 if $(ConfigurationName) == Release xcopy "$(TargetDir)*.dll" "D:\repos\DesignToolbox\src\compiled\Scripts\DesignToolbox\assemblies\" /Y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
