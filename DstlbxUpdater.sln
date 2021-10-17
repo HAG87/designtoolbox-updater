@@ -16,23 +16,17 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
-		Debug-NET35|Any CPU = Debug-NET35|Any CPU
 		Debug-NET40|Any CPU = Debug-NET40|Any CPU
 		Release|Any CPU = Release|Any CPU
-		Release-NET35|Any CPU = Release-NET35|Any CPU
 		Release-NET40|Any CPU = Release-NET40|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{38AE1B05-3C53-4E98-8799-111159DEAFEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{38AE1B05-3C53-4E98-8799-111159DEAFEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{38AE1B05-3C53-4E98-8799-111159DEAFEB}.Debug-NET35|Any CPU.ActiveCfg = Debug|Any CPU
-		{38AE1B05-3C53-4E98-8799-111159DEAFEB}.Debug-NET35|Any CPU.Build.0 = Debug|Any CPU
 		{38AE1B05-3C53-4E98-8799-111159DEAFEB}.Debug-NET40|Any CPU.ActiveCfg = Debug|Any CPU
 		{38AE1B05-3C53-4E98-8799-111159DEAFEB}.Debug-NET40|Any CPU.Build.0 = Debug|Any CPU
 		{38AE1B05-3C53-4E98-8799-111159DEAFEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38AE1B05-3C53-4E98-8799-111159DEAFEB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{38AE1B05-3C53-4E98-8799-111159DEAFEB}.Release-NET35|Any CPU.ActiveCfg = Release|Any CPU
-		{38AE1B05-3C53-4E98-8799-111159DEAFEB}.Release-NET35|Any CPU.Build.0 = Release|Any CPU
 		{38AE1B05-3C53-4E98-8799-111159DEAFEB}.Release-NET40|Any CPU.ActiveCfg = Release|Any CPU
 		{38AE1B05-3C53-4E98-8799-111159DEAFEB}.Release-NET40|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
