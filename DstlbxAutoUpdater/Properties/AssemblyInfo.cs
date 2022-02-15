@@ -10,7 +10,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Bump")]
 [assembly: AssemblyProduct("DstlbxAutoUpdater")]
-[assembly: AssemblyCopyright("Copyright © 2020 Bump")]
+[assembly: AssemblyCopyright("Copyright © 2022 Bump")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,6 +32,6 @@ using System.Resources;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.9.3.1")]
-[assembly: AssemblyFileVersion("2.9.3.1")]
+[assembly: AssemblyVersion("2.9.4.0")]
+[assembly: AssemblyFileVersion("2.9.4.0")]
 [assembly: NeutralResourcesLanguage("en")]

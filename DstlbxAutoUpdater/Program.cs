@@ -3,8 +3,8 @@ using DstlbxAutoUpdater.Properties;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 using Timer = System.Threading.Timer;
 
 namespace DstlbxAutoUpdater
@@ -94,7 +94,7 @@ namespace DstlbxAutoUpdater
                     if (args.Mandatory.Value)
                     {
                         dialogResult = CustomMessageBox.ShowMessage(
-                                 string.Format (Resources.MessageMandatory, args.CurrentVersion, args.InstalledVersion),
+                                 string.Format(Resources.MessageMandatory, args.CurrentVersion, args.InstalledVersion),
                                  Resources.CaptionUpdate,
                                  MessageBoxButtons.OK,
                                  MessageBoxIcon.Information);
@@ -102,7 +102,7 @@ namespace DstlbxAutoUpdater
                     else
                     {
                         dialogResult = CustomMessageBox.ShowMessage(
-                                string.Format (Resources.MessageNormal, args.CurrentVersion, args.InstalledVersion),
+                                string.Format(Resources.MessageNormal, args.CurrentVersion, args.InstalledVersion),
                                 Resources.CaptionUpdate,
                                 MessageBoxButtons.YesNo,
                                 MessageBoxIcon.Information);
@@ -113,7 +113,7 @@ namespace DstlbxAutoUpdater
                         try
                         {
                             //You can use Download Update dialog used by AutoUpdater.NET to download the update.
-                            OpenDownloadLink(args.DownloadURL);                            
+                            OpenDownloadLink(args.DownloadURL);
                             Quit();
                             // if (AutoUpdater.DownloadUpdate())
                             // {
