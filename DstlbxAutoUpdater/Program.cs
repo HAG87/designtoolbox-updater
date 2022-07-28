@@ -6,61 +6,97 @@ using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
 using Timer = System.Threading.Timer;
+using System.Configuration;
+using System.Collections.Specialized;
+
+using System.IO;
+
 
 namespace DstlbxAutoUpdater
 {
     // The class that handles the creation of the application windows
     internal class UpdateAppContext : ApplicationContext
     {
-        private const string AppCast = "https://raw.githubusercontent.com/HAG87/designtoolbox-release/master/versioninfo.xml";
+        private string appCast/*= "https://raw.githubusercontent.com/HAG87/designtoolbox-release/master/versioninfo.xml"*/;
+        private Version currentVersion;
+
+#if DEBUG
+        private readonly int DelayTime = 3000;
+        private readonly string appDataFile = "..\\..\\AppName.ini";
+#else
         private readonly int DelayTime = 20000;
+        private readonly string appDataFile = "..\\AppName.ini";
+#endif
 
         private FormMain UIdialog;
         private static Timer UpdateTimer;
 
-        public UpdateAppContext(bool uimode, int delayTime = 20000)
+        public UpdateAppContext(bool uimode)
         {
+            var appData = new IniFile(appDataFile);
+
+
+            if (!appData.KeyExists("AppCast", "currentVersion"))
+            {
+                throw new InvalidOperationException("Missing versioninfo.xml");
+            }
+            if (!appData.KeyExists("Version", "productInfo"))
+            {
+                throw new InvalidOperationException("Missing app version");
+            }
+            //MessageBox.Show(new FileInfo(appDataFile).FullName);
+            appCast = appData.Read("AppCast", "currentVersion");
+            //MessageBox.Show(appCast);
+            string posibleVersion = appData.Read("Version", "productInfo");
+            currentVersion = !string.IsNullOrEmpty(posibleVersion) ? new Version(posibleVersion) : null;
+
             // Handle the ApplicationExit event to know when the application is exiting.
             Application.ApplicationExit += new EventHandler(this.OnApplicationExit);
-            DelayTime = delayTime;
-            if (!uimode)
+
+            if (uimode)
             {
-                // SilentUpdateCheck(AppCast);
-                UpdateTimer = new Timer(TimerAction, AppCast, DelayTime, Timeout.Infinite);
+                ShowDialog(appCast, currentVersion);
             }
             else
             {
-                ShowDialog(AppCast);
+                UpdateTimer = new Timer(TimerAction, null, DelayTime, Timeout.Infinite);
+                //UpdateTimer = new Timer(x => TimerAction(x, appCast), currentVersion, DelayTime, Timeout.Infinite);
+                // SilentUpdateCheck(AppCast);
             }
         }
 
-        private void TimerAction(object args)
+        //private void TimerAction(object appCast, object currentVersion)
+        private void TimerAction(object state)
         {
-            // this.Invoke((Action)this.SilentUpdateCheck(AppCast));
-            // UpdateTimer.Change(Timeout.Infinite, Timeout.Infinite);
             UpdateTimer.Dispose();
+            //Console.WriteLine(currentVersion.ToString());
             // this starts the silent update check.
-            SilentUpdateCheck((string)args);
+            SilentUpdateCheck(appCast, currentVersion);
+            //SilentUpdateCheck((string)appCast, (Version)currentVersion);
         }
-        private void SilentUpdateCheck(string args, bool err = true)
+        private void SilentUpdateCheck(string castURL, Version currVersion, bool err = true)
         {
+            // Console.WriteLine("cheking for updates");
             // Configure AutoUpdater
             AutoUpdater.AppTitle = "DesignToolBox";
             AutoUpdater.ReportErrors = err;
             AutoUpdater.UpdateMode = Mode.Normal;
-
+            // Use a provided version number
+            AutoUpdater.InstalledVersion = currVersion;
             // handle Update logic
             AutoUpdater.CheckForUpdateEvent += AutoUpdaterOnCheckForUpdateEvent;
             // Handle exit logic
             // AutoUpdater.ApplicationExitEvent += AutoUpdater_ApplicationExitEvent;
+
             // Start the AutoUpdater
-            AutoUpdater.Start(args);
+            AutoUpdater.Start(castURL);
         }
 
-        private void ShowDialog(string args)
+        private void ShowDialog(string castURL, Version currVersion)
         {
-            // Create application forms and handle the Closed event
-            UIdialog = new FormMain(args);
+            // Create application forms
+            UIdialog = new FormMain(castURL, currVersion);
+            // Handle the Closed event
             UIdialog.Closed += new EventHandler(OnFormClosed);
             // UIdialog.Closing += new CancelEventHandler(OnFormClosing);
 
@@ -194,16 +230,15 @@ namespace DstlbxAutoUpdater
             {
                 foreach (var arg in args)
                 {
-                    if (arg == "ui" || arg == "UI")
+                    if (arg.ToLower() == "silent")
                     {
-                        AppRun(true);
+                        AppRun(false);
                         return;
                     }
                 }
             }
-
             // Run the application with the specific context.
-            AppRun(false);
+            AppRun(true);
         }
 
         private static void AppRun(bool uimode)

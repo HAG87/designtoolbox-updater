@@ -10,12 +10,14 @@ namespace DstlbxAutoUpdater
     public partial class FormMain : Form
     {
         private readonly string appCast;
+        private readonly Version appVersion;
 
-        public FormMain(string castURL)
+        public FormMain(string castURL, Version customVersion)
         {
             InitializeComponent();
             labelVersion.Text = string.Format(Resources.CurrentVersion, Assembly.GetEntryAssembly().GetName().Version);
             appCast = castURL ?? throw new ArgumentNullException(nameof(castURL));
+            appVersion = customVersion;
         }
 
         private void FormMain_Load(object sender, EventArgs e)
@@ -29,8 +31,8 @@ namespace DstlbxAutoUpdater
 
             //AutoUpdater.RunUpdateAsAdmin = false;
 
-            //Uncomment below line to see russian version
-            //Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture("ru");
+            // Use a provided version number instead of assembly version
+            AutoUpdater.InstalledVersion = appVersion;
 
             //If you want to open download page when user click on download button uncomment below line.
             AutoUpdater.OpenDownloadPage = true;
@@ -85,36 +87,36 @@ namespace DstlbxAutoUpdater
         private void AutoUpdater_ApplicationExitEvent()
         {
             Text = @"Closing application...";
-            Thread.Sleep(5000);
+            Thread.Sleep(3000);
             Application.Exit();
         }
 
 
-        //private void AutoUpdaterOnParseUpdateInfoEvent(ParseUpdateInfoEventArgs args)
-        //{
+        /*private void AutoUpdaterOnParseUpdateInfoEvent(ParseUpdateInfoEventArgs args)
+        {
 
-        //    dynamic json = JsonConvert.DeserializeObject(args.RemoteData);
-        //    args.UpdateInfo = new UpdateInfoEventArgs
-        //    {
-        //        CurrentVersion = json.version,
-        //        ChangelogURL = json.changelog,
-        //        Mandatory = json.mandatory,
-        //        DownloadURL = json.url
-        //    };
-        //}
+            dynamic json = JsonConvert.DeserializeObject(args.RemoteData);
+            args.UpdateInfo = new UpdateInfoEventArgs
+            {
+                CurrentVersion = json.version,
+                ChangelogURL = json.changelog,
+                Mandatory = json.mandatory,
+                DownloadURL = json.url
+            };
+        }*/
 
         private void ButtonCheckForUpdate_Click(object sender, EventArgs e)
         {
             // Uncomment below lines to select download path where update is saved.
-            // FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
-            // if (folderBrowserDialog.ShowDialog().Equals(DialogResult.OK))
-            // {
-            //     AutoUpdater.DownloadPath = folderBrowserDialog.SelectedPath;
-            //     AutoUpdater.Mandatory = true;
-            //     AutoUpdater.Start(appCast);
-            // }
-            // AutoUpdater.Mandatory = true;
-            // AutoUpdater.UpdateMode = Mode.Forced;
+            /*FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
+            if (folderBrowserDialog.ShowDialog().Equals(DialogResult.OK))
+            {
+                AutoUpdater.DownloadPath = folderBrowserDialog.SelectedPath;
+                AutoUpdater.Mandatory = true;
+                AutoUpdater.Start(appCast);
+            }
+            AutoUpdater.Mandatory = true;
+            AutoUpdater.UpdateMode = Mode.Forced;*/
             AutoUpdater.Start(appCast);
         }
     }
