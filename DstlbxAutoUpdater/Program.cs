@@ -17,7 +17,7 @@ namespace DstlbxAutoUpdater
     // The class that handles the creation of the application windows
     internal class UpdateAppContext : ApplicationContext
     {
-        private string appCast/*= "https://raw.githubusercontent.com/HAG87/designtoolbox-release/master/versioninfo.xml"*/;
+        private readonly string appCast/*= "https://raw.githubusercontent.com/HAG87/designtoolbox-release/master/versioninfo.xml"*/;
         private Version currentVersion;
 
 #if DEBUG
