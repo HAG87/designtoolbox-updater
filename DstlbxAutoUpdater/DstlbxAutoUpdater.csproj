@@ -171,7 +171,7 @@
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.2">
       <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.6.2 %28x86 and x64%29</ProductName>
+      <ProductName>Microsoft .NET Framework 4.6.2 %28x86 y x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
@@ -182,10 +182,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if $(ConfigurationName) == Release xcopy "$(TargetDir)*.exe" "E:\repos\DesignToolbox\src\compiled\Scripts\DesignToolbox\assemblies\" /Y
-if $(ConfigurationName) == Release xcopy "$(TargetDir)*.dll" "E:\repos\DesignToolbox\src\compiled\Scripts\DesignToolbox\assemblies\" /Y
-if $(ConfigurationName) == Release xcopy "$(TargetDir)*.exe" "E:\repos\DesignToolbox\src\Scripts\DesignToolbox\assemblies\" /Y
-if $(ConfigurationName) == Release xcopy "$(TargetDir)*.dll" "E:\repos\DesignToolbox\src\Scripts\DesignToolbox\assemblies\" /Y</PostBuildEvent>
+    <PostBuildEvent>if $(ConfigurationName) == Release xcopy "$(TargetDir)*.exe" "E:\repos\DesignToolbox\src\compiled\Scripts\DesignToolbox\assemblies\" /y
+if $(ConfigurationName) == Release xcopy "$(TargetDir)*.dll" "E:\repos\DesignToolbox\src\compiled\Scripts\DesignToolbox\assemblies\" /y
+if $(ConfigurationName) == Release xcopy "$(TargetDir)*.exe" "E:\repos\DesignToolbox\src\Scripts\DesignToolbox\assemblies\" /y
+if $(ConfigurationName) == Release xcopy "$(TargetDir)*.dll" "E:\repos\DesignToolbox\src\Scripts\DesignToolbox\assemblies\" /y</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\Microsoft.Web.WebView2.1.0.1722.45\build\Microsoft.Web.WebView2.targets" Condition="Exists('..\packages\Microsoft.Web.WebView2.1.0.1722.45\build\Microsoft.Web.WebView2.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
